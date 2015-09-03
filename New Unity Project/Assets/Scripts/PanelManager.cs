@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class PanelManager : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class PanelManager : MonoBehaviour
 
 	public void OpenGameOverPanel ()
 	{
-
+        OpenPanel(gameOverPanel);
 
 	}
 
@@ -26,13 +27,20 @@ public class PanelManager : MonoBehaviour
 		if (currentPanel != null) {
 			ClosePanel (currentPanel);
 		}
-		currentPanel = panel;
+        currentPanel = panel;
+        currentPanel.SetActive(true);
+		
 
 		
 	}
 	private void ClosePanel (GameObject panel)
 	{
+        panel.SetActive(false);
 		prevSelected = panel;
 	}
 
+    internal void OpenMenu()
+    {
+        throw new NotImplementedException();
+    }
 }
