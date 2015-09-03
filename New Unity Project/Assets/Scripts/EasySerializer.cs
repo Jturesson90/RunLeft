@@ -30,45 +30,47 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Reflection;
 
-public class EasySerializer {
+public class EasySerializer
+{
 			
-	public static void SerializeObjectToFile(object serializableObject, string filePath) {
-		EasySerializer.SetEnvironmentVariables();
+	public static void SerializeObjectToFile (object serializableObject, string filePath)
+	{
+		EasySerializer.SetEnvironmentVariables ();
 
-		Stream stream = File.Open(filePath, FileMode.Create);
+		Stream stream = File.Open (filePath, FileMode.Create);
 
-		BinaryFormatter formatter = new BinaryFormatter();
-		formatter.Binder = new VersionDeserializationBinder();
-		formatter.Serialize(stream, serializableObject);
+		BinaryFormatter formatter = new BinaryFormatter ();
+		formatter.Binder = new VersionDeserializationBinder ();
+		formatter.Serialize (stream, serializableObject);
 
-		stream.Close();
+		stream.Close ();
 
 	}
 
-	public static object DeserializeObjectFromFile(string filePath) {
+	public static object DeserializeObjectFromFile (string filePath)
+	{
 
-		if (!File.Exists(filePath)) {
+		if (!File.Exists (filePath)) {
 			return null;
 		}
 
 
-		EasySerializer.SetEnvironmentVariables();
+		EasySerializer.SetEnvironmentVariables ();
 
 		Stream stream = null;
 		
 		try {
-			stream = File.Open(filePath, FileMode.Open);
-		} 
+			stream = File.Open (filePath, FileMode.Open);
+		} catch (FileNotFoundException e) {
 
-		catch(FileNotFoundException e) {
 			return null;
 		}
 		
-		BinaryFormatter formatter = new BinaryFormatter();
-		formatter.Binder = new VersionDeserializationBinder();
-		object o = formatter.Deserialize(stream);
+		BinaryFormatter formatter = new BinaryFormatter ();
+		formatter.Binder = new VersionDeserializationBinder ();
+		object o = formatter.Deserialize (stream);
 
-		stream.Close();
+		stream.Close ();
 
 		return o;
 	}
@@ -77,8 +79,9 @@ public class EasySerializer {
  	 * Suggested by Nico de Poel:
 	 * http://answers.unity3d.com/questions/30930/why-did-my-binaryserialzer-stop-working.html?sort=oldest
  	 */
-	private static void SetEnvironmentVariables() {
-		Environment.SetEnvironmentVariable("MONO_REFLECTION_SERIALIZER", "yes");
+	private static void SetEnvironmentVariables ()
+	{
+		Environment.SetEnvironmentVariable ("MONO_REFLECTION_SERIALIZER", "yes");
 	}
 
 }
@@ -88,18 +91,17 @@ public class EasySerializer {
  * Suggested by TowerOfBricks:
  * http://answers.unity3d.com/questions/8480/how-to-scrip-a-saveload-game-option.html
  * */
-public sealed class VersionDeserializationBinder : SerializationBinder 
+public sealed class VersionDeserializationBinder : SerializationBinder
 { 
-	public override Type BindToType( string assemblyName, string typeName )
+	public override Type BindToType (string assemblyName, string typeName)
 	{ 
-		if ( !string.IsNullOrEmpty( assemblyName ) && !string.IsNullOrEmpty( typeName ) ) 
-		{ 
+		if (!string.IsNullOrEmpty (assemblyName) && !string.IsNullOrEmpty (typeName)) { 
 			Type typeToDeserialize = null; 
 			
-			assemblyName = Assembly.GetExecutingAssembly().FullName; 
+			assemblyName = Assembly.GetExecutingAssembly ().FullName; 
 			
 			// The following line of code returns the type. 
-			typeToDeserialize = Type.GetType( String.Format( "{0}, {1}", typeName, assemblyName ) ); 
+			typeToDeserialize = Type.GetType (String.Format ("{0}, {1}", typeName, assemblyName)); 
 			
 			return typeToDeserialize; 
 		} 
