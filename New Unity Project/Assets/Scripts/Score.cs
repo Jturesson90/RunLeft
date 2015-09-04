@@ -71,10 +71,6 @@ public class Score : MonoBehaviour
 		ScoreText = elapsedTime;
 		return elapsedTime;
 	}
-   
-	public string GetFinalScore ()
-	{
-		return FormatTime (stopWatch);
-	}
+
    
 }

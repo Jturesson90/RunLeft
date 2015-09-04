@@ -77,6 +77,8 @@ public class PandaHandler : MonoBehaviour
 		transform.Translate (Vector3.up * MovementSpeed * Time.deltaTime);
 		transform.Rotate (Vector3.forward, Time.deltaTime * Angle * _tempMovementSpeed);
 		time += Time.deltaTime;
+       
+        if (Score.ScoreInSeconds > 30f) return;
 		if (time > increaseInterval) {
 			time = 0f;
 			_targetSpeed += increaseBy;
