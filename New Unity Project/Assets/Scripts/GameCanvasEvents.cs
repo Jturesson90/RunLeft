@@ -4,24 +4,36 @@ using UnityEngine.UI;
 using System;
 public class GameCanvasEvents : MonoBehaviour
 {
-
+    [Header("Public Gameobjects")]
     public GameObject Hint;
     public GameObject HighscoreText;
-    public GameObject ScoreText;
-    public GameObject Trophy;
+    public GameObject DuringGameScore;
 
+    public GameObject Trophy;
+    public GameObject NewHighscore;
+
+    [Header("Trophy Colors")]
     public Color32 BronzeColor;
     public Color32 SilverColor;
     public Color32 GoldColor;
 
+    [Header("Trophy timers in Milliseconds")]
     public long goldTime = 60000;
     public long silverTime = 30000;
     public long bronzeTime = 15000;
+
+    [Header("Final score")]
+    public float finalScoreSpeedCount = 20f;
+    public GameObject ScoreText;
 
     private float _tempFinalScore = 0f;
 
     Animator animator;
     long highscore;
+
+    private Vector3 scorePanelStartPos;
+    public Vector3 scorePanelOutSidePos;
+
 
     private RunLeftManager.GameState _gameState = RunLeftManager.Instance.State;
     // Use this for initialization
@@ -31,10 +43,34 @@ public class GameCanvasEvents : MonoBehaviour
     }
     void Start()
     {
-        Highscores highscores = HighscoreHandler.Instance.GetHighscores();
 
+
+        Highscores highscores = HighscoreHandler.Instance.GetHighscores();
         highscore = highscores.Highscore;
-        print("Higscore is " + highscore);
+        SetupHint();
+        SetupScorePanel();
+    }
+    void SetupScorePanel()
+    {
+
+        RectTransform rt = DuringGameScore.GetComponent<RectTransform>();
+        scorePanelStartPos = rt.anchoredPosition;
+        rt.anchoredPosition = new Vector3(0f, 900f, 0);
+        LeanTween.move(rt, scorePanelStartPos, 0.5f).setEase(LeanTweenType.easeOutBack);
+
+    }
+
+    void SetupHint()
+    {
+        RectTransform rt = Hint.GetComponent<RectTransform>();
+        rt.anchoredPosition = new Vector3(-900f, rt.anchoredPosition.y, 0);
+        LeanTween.move(rt, new Vector3(0, rt.anchoredPosition.y, 0f), 0.5f).setEase(LeanTweenType.easeOutBack);
+    }
+
+    void TweenOut(GameObject go, Vector3 outSidePos)
+    {
+        RectTransform rt = go.GetComponent<RectTransform>();
+        LeanTween.move(rt, outSidePos, 0.5f).setEase(LeanTweenType.easeInBack);
     }
 
     // Update is called once per frame
@@ -45,19 +81,20 @@ public class GameCanvasEvents : MonoBehaviour
         {
 
             case RunLeftManager.GameState.Waiting:
-                Hint.SetActive(true);
+
                 break;
             case RunLeftManager.GameState.Playing:
                 if (changed)
                 {
-                    Hint.SetActive(false);
+                    TweenOut(Hint, new Vector3(900f, Hint.GetComponent<RectTransform>().anchoredPosition.y, 0f));
+                    //Hint.SetActive(false);
                     print("IS PLAYING NOW");
                 }
                 break;
             case RunLeftManager.GameState.Ended:
                 if (changed)
                 {
-                    Hint.SetActive(false);
+                    TweenOut(DuringGameScore, scorePanelOutSidePos);
                     OnGameOver();
                 }
                 break;
@@ -108,16 +145,15 @@ public class GameCanvasEvents : MonoBehaviour
         GoogleGameHandler.Instance.SendToHighscore(Score.ScoreInLong);
         long bestScore = Math.Max(highscore, Score.ScoreInLong);
         string bestScoreString = bestScore.ToFormattedTimeString();
+
+        bool newHighscore = false;
         SetHighScoreText(bestScoreString);
-        print("GAME OVER and score is " + Score.ScoreInLong);
         if (highscore < Score.ScoreInLong)
         {
+            newHighscore = true;
             HighscoreHandler.Instance.SaveHighscore(Score.ScoreInLong);
         }
-        else
-        {
-
-        }
+        NewHighscore.SetActive(newHighscore);
         SetTrophyColor();
 
     }
@@ -135,10 +171,9 @@ public class GameCanvasEvents : MonoBehaviour
         {
             if (finalScore < _tempFinalScore)
             {
-                finalScore += Time.smoothDeltaTime * 10f;
+                finalScore += Time.smoothDeltaTime * _tempFinalScore / finalScoreSpeedCount;
 
                 finalScore = Mathf.Min(finalScore, _tempFinalScore);
-
                 SetScoreText(finalScore.ToFormattedTimeString());
             }
         }
@@ -177,4 +212,6 @@ public class GameCanvasEvents : MonoBehaviour
 
         }
     }
+
+
 }

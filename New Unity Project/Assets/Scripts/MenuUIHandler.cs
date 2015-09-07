@@ -1,17 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class MenuUIHandler : MonoBehaviour
 {
-
+    public GameObject MuteButton;
+    public Sprite MuteOffImage;
+    public Sprite MuteOnImage;
     public LevelSwitcher levelSwitcher;
     // Use this for initialization
     void Start()
     {
+
         if (RunLeftPlayerPrefs.ShouldLogIn())
         {
             GoogleGameHandler.Instance.Instantiate();
             RunLeftPlayerPrefs.SetShouldLogIn(false);
+        }
+        if (RunLeftPlayerPrefs.IsMuted())
+        {
+            MuteSound();
+        }
+
+        if (!MusicManager.Instance.IsPlaying())
+        {
+            // MusicManager.Instance.Play();
         }
     }
 
@@ -37,5 +50,29 @@ public class MenuUIHandler : MonoBehaviour
     public void OnAchievementPressed()
     {
         GoogleGameHandler.Instance.ShowAchievements();
+    }
+    public void OnMutePressed()
+    {
+        AudioListener.volume = AudioListener.volume == 1 ? 0 : 1;
+        HandleMuteButtonImages(AudioListener.volume == 1 ? true : false);
+    }
+
+    private void HandleMuteButtonImages(bool soundIsOn)
+    {
+        if (soundIsOn)
+        {
+            MuteButton.GetComponent<Image>().sprite = MuteOffImage;
+            RunLeftPlayerPrefs.SetMute(false);
+        }
+        else
+        {
+            RunLeftPlayerPrefs.SetMute(true);
+            MuteButton.GetComponent<Image>().sprite = MuteOnImage;
+        }
+    }
+    public void MuteSound()
+    {
+        AudioListener.volume = 0;
+        MuteButton.GetComponent<Image>().sprite = MuteOnImage;
     }
 }

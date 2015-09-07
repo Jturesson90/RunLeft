@@ -15,6 +15,7 @@ public class HighscoreHandler
             {
                 _instance = new HighscoreHandler();
             }
+            
             return _instance;
         }
     }
@@ -31,7 +32,7 @@ public class HighscoreHandler
             SaveNew();
         }
     }
-    private void SaveNew()
+    public void SaveNew()
     {
         Highscores highscores = new Highscores();
         highscores.BestNotUploadedScore = 0;

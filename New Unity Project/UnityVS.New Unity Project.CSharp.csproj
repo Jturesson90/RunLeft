@@ -62,6 +62,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="UnityVS.New Unity Project.CSharp.Plugins.csproj">
+      <Project>{84B10724-7119-5C3F-E639-CEC8C718E016}</Project>
+      <Name>UnityVS.New Unity Project.CSharp.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\Gamestrap UI\Effects\GradientEffect.cs" />
     <Compile Include="Assets\Gamestrap UI\Effects\ShadowEffect.cs" />
     <Compile Include="Assets\Gamestrap UI\Helper Scripts\ButtonShowHide.cs" />
@@ -211,6 +217,25 @@
     <Compile Include="Assets\GooglePlayGames\Platforms\NearbyConnectionClientFactory.cs" />
     <Compile Include="Assets\GooglePlayGames\Platforms\PlayGamesClientFactory.cs" />
     <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\GUIExamplesCS.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralBasicCS.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralBasics2dCS.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralCameraShake.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralEventsListenersCS.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\LogoCinematic.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\PathSpline.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\PathSpline2d.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\PathSplines.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\PathSplinesBezier.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\TestingAllCS.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\TestingAlphaFade.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\TestingEverything.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\TestingPunch.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\TestingRigidbodyCS.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\TestingUniqueId.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\TutorialPresentationFinished.cs" />
+    <Compile Include="Assets\LeanTween\Examples\Scripts\UIExampleCS.cs" />
+    <Compile Include="Assets\MusicManager.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\FitBoardToScreen.cs" />
     <Compile Include="Assets\Scripts\DroleGamesSplash.cs" />
     <Compile Include="Assets\Scripts\EasySerializer.cs" />
@@ -237,6 +262,8 @@
     <None Include="Assets\GooglePlayGames\Editor\Podfile.txt" />
     <None Include="Assets\GooglePlayGames\Editor\template-AndroidManifest.txt" />
     <None Include="Assets\GooglePlayGames\Editor\template-GameInfo.txt" />
+    <None Include="Assets\LeanTween\Examples\Shader\2dUnlitWithFade.shader" />
+    <None Include="Assets\LeanTween\ReadMe.txt" />
     <None Include="Assets\Plugins\Android\MainLibProj\AndroidManifest.xml" />
     <None Include="Assets\Plugins\Android\google-play-services_lib\AndroidManifest.xml" />
     <None Include="Assets\Plugins\Android\google-play-services_lib\README.txt" />

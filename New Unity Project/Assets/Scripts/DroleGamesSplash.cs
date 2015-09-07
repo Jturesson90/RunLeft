@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class DroleGamesSplash : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class DroleGamesSplash : MonoBehaviour
     void Start()
     {
         RunLeftPlayerPrefs.SetShouldLogIn(true);
+       
     }
 
     // Update is called once per frame
