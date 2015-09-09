@@ -49,6 +49,7 @@ public class MusicManager : MonoBehaviour
 
     public void Play()
     {
+        print("Play");
         myAudio.Play();
     }
 }

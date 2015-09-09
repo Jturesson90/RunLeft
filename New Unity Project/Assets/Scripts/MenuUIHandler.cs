@@ -19,12 +19,14 @@ public class MenuUIHandler : MonoBehaviour
         }
         if (RunLeftPlayerPrefs.IsMuted())
         {
+            print("MUTE!");
             MuteSound();
         }
 
         if (!MusicManager.Instance.IsPlaying())
         {
-            // MusicManager.Instance.Play();
+            print("SPELAR!");
+         //   MusicManager.Instance.Play();
         }
     }
 
@@ -53,6 +55,7 @@ public class MenuUIHandler : MonoBehaviour
     }
     public void OnMutePressed()
     {
+        print("OnMutePressed!");
         AudioListener.volume = AudioListener.volume == 1 ? 0 : 1;
         HandleMuteButtonImages(AudioListener.volume == 1 ? true : false);
     }
@@ -72,6 +75,7 @@ public class MenuUIHandler : MonoBehaviour
     }
     public void MuteSound()
     {
+        print("MuteSound!");
         AudioListener.volume = 0;
         MuteButton.GetComponent<Image>().sprite = MuteOnImage;
     }

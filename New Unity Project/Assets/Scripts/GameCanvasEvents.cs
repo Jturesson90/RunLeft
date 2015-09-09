@@ -9,15 +9,16 @@ public class GameCanvasEvents : MonoBehaviour
     public GameObject HighscoreText;
     public GameObject DuringGameScore;
 
-    public GameObject Trophy;
+    
     public GameObject NewHighscore;
 
-    [Header("Trophy Colors")]
-    public Color32 BronzeColor;
-    public Color32 SilverColor;
-    public Color32 GoldColor;
+    [Header("Award")]
+    public GameObject Trophy;
+    public Sprite BronzeSprite;
+    public Sprite SilverSprite;
+    public Sprite GoldSprite;
 
-    [Header("Trophy timers in Milliseconds")]
+    [Header("Award timers in Milliseconds")]
     public long goldTime = 60000;
     public long silverTime = 30000;
     public long bronzeTime = 15000;
@@ -195,17 +196,20 @@ public class GameCanvasEvents : MonoBehaviour
         if (Score.ScoreInLong > goldTime)
         {
             GoogleGameHandler.Instance.AchievementGold();
-            Trophy.GetComponent<Image>().color = GoldColor;
+            Trophy.GetComponent<Image>().sprite = GoldSprite;
+            Trophy.GetComponent<Image>().color = Color.white;
         }
         else if (Score.ScoreInLong > silverTime)
         {
             GoogleGameHandler.Instance.AchievementSilver();
-            Trophy.GetComponent<Image>().color = SilverColor;
+            Trophy.GetComponent<Image>().sprite = SilverSprite;
+            Trophy.GetComponent<Image>().color = Color.white;
         }
         else if (Score.ScoreInLong > bronzeTime)
         {
             GoogleGameHandler.Instance.AchievementBronze();
-            Trophy.GetComponent<Image>().color = BronzeColor;
+            Trophy.GetComponent<Image>().sprite = BronzeSprite;
+            Trophy.GetComponent<Image>().color = Color.white;
         }
         else
         {

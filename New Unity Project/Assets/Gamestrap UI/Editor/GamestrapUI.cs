@@ -548,61 +548,61 @@ namespace Gamestrap
         {
             foreach (GameObject go in Selection.gameObjects)
             {
-                ActivateEffects(go);
+               // ActivateEffects(go);
                 // This resets the element so it updates the colors in the editor
                 go.SetActive(false);
                 go.SetActive(true);
             }
         }
 
-        public void ActivateEffects(GameObject gameObject)
-        {
-            if (gameObject.GetComponent<UnityEngine.UI.Image>() || gameObject.GetComponent<UnityEngine.UI.Text>())
-            {
-                if (shadow)
-                {
-                    ShadowEffect shadowEffect = gameObject.GetComponent<ShadowEffect>();
-                    if (!shadowEffect)
-                    {
-                        shadowEffect = Undo.AddComponent<ShadowEffect>(gameObject);
-                    }
-                    shadowEffect.effectDistance = shadowDistance;
-                    shadowEffect.effectColor = shadowColor;
-                    EditorUtility.SetDirty(gameObject);
-                }
-                else if (gameObject.GetComponent<ShadowEffect>())
-                {
-                    Undo.DestroyObjectImmediate(gameObject.GetComponent<ShadowEffect>());
-                }
-            }
+        //public void ActivateEffects(GameObject gameObject)
+        //{
+        //    if (gameObject.GetComponent<UnityEngine.UI.Image>() || gameObject.GetComponent<UnityEngine.UI.Text>())
+        //    {
+        //        if (shadow)
+        //        {
+        //            ShadowEffect shadowEffect = gameObject.GetComponent<ShadowEffect>();
+        //            if (!shadowEffect)
+        //            {
+        //                shadowEffect = Undo.AddComponent<ShadowEffect>(gameObject);
+        //            }
+        //            shadowEffect.effectDistance = shadowDistance;
+        //            shadowEffect.effectColor = shadowColor;
+        //            EditorUtility.SetDirty(gameObject);
+        //        }
+        //        else if (gameObject.GetComponent<ShadowEffect>())
+        //        {
+        //            Undo.DestroyObjectImmediate(gameObject.GetComponent<ShadowEffect>());
+        //        }
+        //    }
 
-            if (gameObject.GetComponent<UnityEngine.UI.Image>())
-            {
-                if (gradient)
-                {
-                    GradientEffect gradientEffect = gameObject.GetComponent<GradientEffect>();
-                    if (!gradientEffect)
-                    {
-                        gradientEffect = Undo.AddComponent<GradientEffect>(gameObject);
-                    }
-                    gradientEffect.top = gradientTop;
-                    gradientEffect.bottom = gradientBottom;
-                    EditorUtility.SetDirty(gameObject);
-                }
-                else if (gameObject.GetComponent<GradientEffect>())
-                {
-                    Undo.DestroyObjectImmediate(gameObject.GetComponent<GradientEffect>());
-                }
-            }
+        //    if (gameObject.GetComponent<UnityEngine.UI.Image>())
+        //    {
+        //        if (gradient)
+        //        {
+        //            GradientEffect gradientEffect = gameObject.GetComponent<GradientEffect>();
+        //            if (!gradientEffect)
+        //            {
+        //                gradientEffect = Undo.AddComponent<GradientEffect>(gameObject);
+        //            }
+        //            gradientEffect.top = gradientTop;
+        //            gradientEffect.bottom = gradientBottom;
+        //            EditorUtility.SetDirty(gameObject);
+        //        }
+        //        else if (gameObject.GetComponent<GradientEffect>())
+        //        {
+        //            Undo.DestroyObjectImmediate(gameObject.GetComponent<GradientEffect>());
+        //        }
+        //    }
 
-            if (gameObject.transform.childCount > 0) // Recursive search for components
-            {
-                for (int i = 0; i < gameObject.transform.childCount; i++)
-                {
-                    ActivateEffects(gameObject.transform.GetChild(i).gameObject);
-                }
-            }
-        }
+        //    if (gameObject.transform.childCount > 0) // Recursive search for components
+        //    {
+        //        for (int i = 0; i < gameObject.transform.childCount; i++)
+        //        {
+        //            ActivateEffects(gameObject.transform.GetChild(i).gameObject);
+        //        }
+        //    }
+        //}
         #endregion
 
         #region Color suggestion methods
