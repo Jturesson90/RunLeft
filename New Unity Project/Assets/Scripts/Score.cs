@@ -44,8 +44,11 @@ public class Score : MonoBehaviour
 		}
         
         
-		SetText ();
+		
 	}
+    void LateUpdate() {
+        SetText();
+    }
 	public void StartCounting ()
 	{
 		stopWatch.Start ();

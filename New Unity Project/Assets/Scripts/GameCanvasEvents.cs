@@ -8,8 +8,8 @@ public class GameCanvasEvents : MonoBehaviour
     public GameObject Hint;
     public GameObject HighscoreText;
     public GameObject DuringGameScore;
+    public GameObject GameCenterButton;
 
-    
     public GameObject NewHighscore;
 
     [Header("Award")]
@@ -44,7 +44,11 @@ public class GameCanvasEvents : MonoBehaviour
     }
     void Start()
     {
-
+#if UNITY_IOS
+        GameCenterButton.SetActive(true);
+#else
+        GameCenterButton.SetActive(false);
+#endif
 
         Highscores highscores = HighscoreHandler.Instance.GetHighscores();
         highscore = highscores.Highscore;

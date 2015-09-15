@@ -8,6 +8,14 @@ public class MenuUIHandler : MonoBehaviour
     public Sprite MuteOffImage;
     public Sprite MuteOnImage;
     public LevelSwitcher levelSwitcher;
+
+    public GameObject AchievementButton;
+    public GameObject LeaderboarButton;
+  
+
+    [Header("Game Center Specific")]
+    public GameObject GameCenterButton;
+
     // Use this for initialization
     void Start()
     {
@@ -26,8 +34,20 @@ public class MenuUIHandler : MonoBehaviour
         if (!MusicManager.Instance.IsPlaying())
         {
             print("SPELAR!");
-         //   MusicManager.Instance.Play();
+            //   MusicManager.Instance.Play();
         }
+
+#if UNITY_IOS
+    AchievementButton.SetActive(false);
+        LeaderboarButton.SetActive(false);
+        GameCenterButton.SetActive(true);
+#elif UNITY_ANDROID 
+        GameCenterButton.SetActive(false);
+        AchievementButton.SetActive(true);
+        LeaderboarButton.SetActive(true);
+#endif
+
+
     }
 
     // Update is called once per frame

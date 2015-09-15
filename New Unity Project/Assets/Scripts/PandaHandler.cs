@@ -17,7 +17,7 @@ public class PandaHandler : MonoBehaviour
         increaseInterval = 4f;
     public float IncreaseBy = 0.5f;
     public float Angle = 90f;
-    public float StopIncreasingAfter = 60f;
+    public float MaxSpeed = 60f;
 
 
     //  private RunLeftManager.GameState gameState = RunLeftManager.GameState.Waiting;
@@ -89,7 +89,7 @@ public class PandaHandler : MonoBehaviour
         transform.Rotate(Vector3.forward, Time.deltaTime * Angle * _tempMovementSpeed);
         time += Time.deltaTime;
 
-        // if (Score.ScoreInSeconds > StopIncreasingAfter) return;
+    
         if (time > increaseInterval)
         {
             time = 0f;
@@ -103,6 +103,7 @@ public class PandaHandler : MonoBehaviour
 
             MovementSpeed = Mathf.Min(MovementSpeed, _targetSpeed);
         }
+        MovementSpeed = Mathf.Min(MaxSpeed, MovementSpeed);
     }
 
     void OnTriggerEnter2D(Collider2D other)
