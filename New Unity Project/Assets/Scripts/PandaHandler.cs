@@ -24,7 +24,7 @@ public class PandaHandler : MonoBehaviour
     private bool _turnLeft = false;
     private float _tempMovementSpeed = 0f;
     private float _targetSpeed = 0f;
-
+  
 
 
     private RunLeftManager.GameState GameState
@@ -44,7 +44,6 @@ public class PandaHandler : MonoBehaviour
     float time = 0f;
     void Awake()
     {
-
         RunLeftManager.Instance.CleanUp();
         animator = GetComponent<Animator>();
         _targetSpeed = MovementSpeed;
@@ -52,7 +51,7 @@ public class PandaHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        OnStart();
 
     }
 
@@ -64,9 +63,17 @@ public class PandaHandler : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 GameState = RunLeftManager.GameState.Playing;
-                //   ScoreText.StartCounting();
+                OnPlaying();
             }
         }
+        HandleInput();
+
+
+        Movement();
+    }
+    void HandleInput()
+    {
+#if UNITY_EDITOR
         if (Input.GetMouseButton(0))
         {
             _turnLeft = true;
@@ -75,11 +82,27 @@ public class PandaHandler : MonoBehaviour
         {
             _turnLeft = false;
         }
-        Movement();
+#elif UNITY_ANDROID || UNITY_IOS
+        if (Input.touchCount > 0)
+        {
+            _turnLeft = true;
+        }
+        else
+        {
+            _turnLeft = false;
+        }
+#else
+  if (Input.GetMouseButton(0))
+        {
+            _turnLeft = true;
+        }
+        else
+        {
+            _turnLeft = false;
+        }
+#endif
 
-        HandleAnimations();
     }
-
     void Movement()
     {
         if (GameState != RunLeftManager.GameState.Playing)
@@ -89,7 +112,7 @@ public class PandaHandler : MonoBehaviour
         transform.Rotate(Vector3.forward, Time.deltaTime * Angle * _tempMovementSpeed);
         time += Time.deltaTime;
 
-    
+
         if (time > increaseInterval)
         {
             time = 0f;
@@ -128,27 +151,22 @@ public class PandaHandler : MonoBehaviour
     {
         GameState = RunLeftManager.GameState.Ended;
         NavigationUtil.ShowGameOverMenu();
-        //  ScoreText.StopCounting();
+        OnEnd();
+        //ScoreText.StopCounting();
     }
 
-
-    void HandleAnimations()
+    void OnStart()
     {
-
-        switch (GameState)
-        {
-            case RunLeftManager.GameState.Waiting:
-                animator.SetInteger(PANDA_STATE, GAME_STATE_WAITING);
-                break;
-            case RunLeftManager.GameState.Playing:
-                animator.SetInteger(PANDA_STATE, GAME_STATE_PLAYING);
-                break;
-            case RunLeftManager.GameState.Ended:
-                animator.SetInteger(PANDA_STATE, GAME_STATE_ENDED);
-                break;
-
-
-        }
+        animator.SetInteger(PANDA_STATE, GAME_STATE_WAITING);
+    }
+    void OnPlaying()
+    {
+        animator.SetInteger(PANDA_STATE, GAME_STATE_PLAYING);
+    }
+    void OnEnd()
+    {
+        animator.SetInteger(PANDA_STATE, GAME_STATE_ENDED);
 
     }
+
 }
