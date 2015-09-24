@@ -24,7 +24,7 @@ public class PandaHandler : MonoBehaviour
     private bool _turnLeft = false;
     private float _tempMovementSpeed = 0f;
     private float _targetSpeed = 0f;
-  
+
 
 
     private RunLeftManager.GameState GameState
@@ -44,13 +44,14 @@ public class PandaHandler : MonoBehaviour
     float time = 0f;
     void Awake()
     {
-        RunLeftManager.Instance.CleanUp();
+        //  RunLeftManager.Instance.CleanUp();
         animator = GetComponent<Animator>();
         _targetSpeed = MovementSpeed;
     }
     // Use this for initialization
     void Start()
     {
+        
         OnStart();
 
     }
@@ -108,7 +109,8 @@ public class PandaHandler : MonoBehaviour
         if (GameState != RunLeftManager.GameState.Playing)
             return;
         _tempMovementSpeed = _turnLeft ? MovementSpeed : 0f;
-        transform.Translate(Vector3.up * MovementSpeed * Time.deltaTime);
+
+        transform.Translate(Vector3.up * MovementSpeed * Time.smoothDeltaTime);
         transform.Rotate(Vector3.forward, Time.deltaTime * Angle * _tempMovementSpeed);
         time += Time.deltaTime;
 
@@ -122,7 +124,7 @@ public class PandaHandler : MonoBehaviour
 
         if (MovementSpeed < _targetSpeed)
         {
-            MovementSpeed += Time.deltaTime;
+            MovementSpeed += Time.smoothDeltaTime;
 
             MovementSpeed = Mathf.Min(MovementSpeed, _targetSpeed);
         }
@@ -157,6 +159,7 @@ public class PandaHandler : MonoBehaviour
 
     void OnStart()
     {
+        GameState = RunLeftManager.GameState.Waiting;
         animator.SetInteger(PANDA_STATE, GAME_STATE_WAITING);
     }
     void OnPlaying()

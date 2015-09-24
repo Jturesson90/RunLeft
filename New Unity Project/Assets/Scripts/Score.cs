@@ -81,10 +81,6 @@ public class Score : MonoBehaviour
         {
             scoreText.text = formattedText;
         }
-        else
-        {
-            print("STILL EQUALS");
-        }
 
     }
 
