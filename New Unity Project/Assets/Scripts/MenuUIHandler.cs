@@ -11,10 +11,11 @@ public class MenuUIHandler : MonoBehaviour
 
     public GameObject AchievementButton;
     public GameObject LeaderboarButton;
-  
+    public GameObject PlayButton;
 
     [Header("Game Center Specific")]
     public GameObject GameCenterButton;
+    public GameObject GameCenterPlayButton;
 
     // Use this for initialization
     void Start()
@@ -41,10 +42,14 @@ public class MenuUIHandler : MonoBehaviour
     AchievementButton.SetActive(false);
         LeaderboarButton.SetActive(false);
         GameCenterButton.SetActive(true);
+        GameCenterPlayButton.SetActive(true);
+        PlayButton.SetActive(false);
 #elif UNITY_ANDROID 
         GameCenterButton.SetActive(false);
         AchievementButton.SetActive(true);
         LeaderboarButton.SetActive(true);
+        GameCenterPlayButton.SetActive(false);
+        PlayButton.SetActive(true);
 #endif
 
 

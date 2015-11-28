@@ -9,7 +9,8 @@ using UnityEngine.SocialPlatforms.GameCenter;
 public class GoogleGameHandler
 {
     const string GOOGLE_LEADERBOARD_KEY = "CgkI2auPjP8aEAIQBg";
-
+    const string GAME_CENTER_LEADERBOARD_KEY = "grp.run_left_leaderboard";
+    private string LEADERBOARD_KEY = GOOGLE_LEADERBOARD_KEY;
 
     const string GOOGLE_ACHIEVEMENT_BRONZE = "CgkI2auPjP8aEAIQBw";
     const string GOOGLE_ACHIEVEMENT_SILVER = "CgkI2auPjP8aEAIQCA";
@@ -34,7 +35,6 @@ public class GoogleGameHandler
         {
             if (_instance == null)
             {
-
                 _instance = new GoogleGameHandler();
             }
             return _instance;
@@ -50,9 +50,13 @@ public class GoogleGameHandler
         // Activate the Google Play Games platform
 #if UNITY_IOS
         GameCenterPlatform.ShowDefaultAchievementCompletionBanner(true);
+        LEADERBOARD_KEY = GAME_CENTER_LEADERBOARD_KEY;
+
 #elif UNITY_ANDROID
+        LEADERBOARD_KEY = GOOGLE_LEADERBOARD_KEY;
         PlayGamesPlatform.Activate();
 #else
+        LEADERBOARD_KEY = GOOGLE_LEADERBOARD_KEY;
 #endif
 
         //PlayGamesPlatform.DebugLogEnabled = true;
@@ -98,9 +102,9 @@ public class GoogleGameHandler
                 SendToHighscore(unpublishedScore);
             }
 #if UNITY_IOS
-            GameCenterPlatform.ShowLeaderboardUI("s", TimeScope.Week);
+            GameCenterPlatform.ShowLeaderboardUI(LEADERBOARD_KEY, TimeScope.Week);
 #elif UNITY_ANDROID
-            PlayGamesPlatform.Instance.ShowLeaderboardUI(GOOGLE_LEADERBOARD_KEY);
+            PlayGamesPlatform.Instance.ShowLeaderboardUI(LEADERBOARD_KEY);
 #else
 #endif
 
@@ -120,7 +124,7 @@ public class GoogleGameHandler
             HighscoreHandler.Instance.SaveUnpublishedScore(score);
             return;
         }
-        Social.ReportScore(score, GOOGLE_LEADERBOARD_KEY, (bool success) =>
+        Social.ReportScore(score, LEADERBOARD_KEY, (bool success) =>
        {
            // handle success or failure
            if (!success)
@@ -132,9 +136,11 @@ public class GoogleGameHandler
 
     public void IncreaseCompletedRuns()
     {
+
         IncrementAchievement(GOOGLE_ACHIEVEMENT_1_COMPLETED_RUNS);
         IncrementAchievement(GOOGLE_ACHIEVEMENT_2_COMPLETED_RUNS);
         IncrementAchievement(GOOGLE_ACHIEVEMENT_3_COMPLETED_RUNS);
+
     }
     public void AchievementBronze()
     {
