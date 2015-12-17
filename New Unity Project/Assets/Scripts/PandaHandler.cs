@@ -53,7 +53,7 @@ public class PandaHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+		Application.targetFrameRate = 60;
         OnStart();
 
     }

@@ -20,6 +20,7 @@ public class MenuUIHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+		Application.targetFrameRate = 60;
 
         if (RunLeftPlayerPrefs.ShouldLogIn())
         {

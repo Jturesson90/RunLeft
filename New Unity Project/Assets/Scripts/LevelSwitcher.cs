@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelSwitcher : MonoBehaviour
 {
@@ -49,7 +50,7 @@ public class LevelSwitcher : MonoBehaviour
 		
 				image.CrossFadeAlpha (1f, seconds, true);
 				yield return StartCoroutine (WaitForRealSeconds (seconds));
-				Application.LoadLevel (level);
+				SceneManager.LoadScene (level);
 		
 		}
 		private  IEnumerator _SwitchLevel (string level, float seconds)
@@ -57,7 +58,7 @@ public class LevelSwitcher : MonoBehaviour
 				
 				image.CrossFadeAlpha (1f, seconds, true);
 				yield return StartCoroutine (WaitForRealSeconds (seconds));
-				Application.LoadLevel (level);
+				SceneManager.LoadScene (level);
 				
 		}
 		public void FadeToClear ()

@@ -1,14 +1,14 @@
-﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GoogleGameHandler.cs">
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GoogleGameHandler.cs">
     <Files>
-      <File FileName="Assets\Scripts\HighscoreHandler.cs" Line="60" Column="2" />
-      <File FileName="Assets\Scripts\NavigationUtil.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PandaHandler.cs" Line="88" Column="60" />
-      <File FileName="Assets\Scripts\GameCanvasEvents.cs" Line="78" Column="36" />
-      <File FileName="Assets\Scripts\GoogleGameHandler.cs" Line="20" Column="4" />
-      <File FileName="Assets\Scripts\MenuUIHandler.cs" Line="17" Column="3" />
-      <File FileName="Assets\Scripts\Score.cs" Line="55" Column="21" />
+      <File FileName="Assets/Scripts/PandaHandler.cs" Line="206" Column="12" />
+      <File FileName="Assets/GooglePlayGames/ISocialPlatform/PlayGamesPlatform.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GoogleGameHandler.cs" Line="193" Column="14" />
+      <File FileName="Assets/Scripts/LevelSwitcher.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/HighscoreHandler.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GameCanvasEvents.cs" Line="199" Column="36" />
+      <File FileName="Assets/Scripts/MenuUIHandler.cs" Line="26" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
