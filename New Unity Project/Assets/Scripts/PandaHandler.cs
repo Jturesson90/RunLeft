@@ -208,8 +208,10 @@ public class PandaHandler : MonoBehaviour
     }
     void OnEnd()
     {
+		RunLeftPlayerPrefs.AddCompletedRun ();
         print("OnEnd");
         animator.SetInteger(PANDA_STATE, GAME_STATE_ENDED);
+		print ("Completed runs: "+RunLeftPlayerPrefs.GetCompletedRuns ());
 
     }
 

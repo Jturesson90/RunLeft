@@ -5,6 +5,7 @@ public class RunLeftPlayerPrefs : MonoBehaviour
 {
     const string LOG_IN_KEY = "login";
     const string SOUND_MUTE = "mute";
+	const string COMPLETED_RUNS = "asdasd";
     // Use this for initialization
     public static bool ShouldLogIn()
     {
@@ -39,4 +40,13 @@ public class RunLeftPlayerPrefs : MonoBehaviour
     {
         return PlayerPrefs.GetInt(SOUND_MUTE, 0) == 1 ? true : false;
     }
+
+	public static int GetCompletedRuns()
+	{
+		return PlayerPrefs.GetInt (COMPLETED_RUNS, 0);
+	}
+	public static void AddCompletedRun(){
+		int completedRuns = GetCompletedRuns () + 1;
+		PlayerPrefs.SetInt (COMPLETED_RUNS, completedRuns);
+	}
 }

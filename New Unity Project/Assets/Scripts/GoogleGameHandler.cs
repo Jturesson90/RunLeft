@@ -10,7 +10,6 @@ public class GoogleGameHandler
 {
 	const string GOOGLE_LEADERBOARD_KEY = "CgkI2auPjP8aEAIQBg";
 	const string GAME_CENTER_LEADERBOARD_KEY = "grp.run_left_leaderboard";
-	private string LEADERBOARD_KEY = GOOGLE_LEADERBOARD_KEY;
 
 	const string GOOGLE_ACHIEVEMENT_BRONZE = "CgkI2auPjP8aEAIQBw";
 	const string GOOGLE_ACHIEVEMENT_SILVER = "CgkI2auPjP8aEAIQCA";
@@ -43,16 +42,12 @@ public class GoogleGameHandler
 		_instance = new GoogleGameHandler ();
 #if UNITY_IOS
 		GameCenterPlatform.ShowDefaultAchievementCompletionBanner (true);
-		LEADERBOARD_KEY = GAME_CENTER_LEADERBOARD_KEY;
+
 
 #elif UNITY_ANDROID
-        LEADERBOARD_KEY = GOOGLE_LEADERBOARD_KEY;
         PlayGamesPlatform.Activate();
-#else
-        LEADERBOARD_KEY = GOOGLE_LEADERBOARD_KEY;
 #endif
 
-		//PlayGamesPlatform.DebugLogEnabled = true;
 		LogIn ();
 	}
 
@@ -63,10 +58,10 @@ public class GoogleGameHandler
 		Social.localUser.Authenticate ((bool success) => {
 			if (success) {
 				//	mStatusText = "Welcome " + Social.localUser.userName;
-
+				Debug.Log("Logged in!");
 			} else {
 				//	mStatusText = "Authentication failed.";
-
+				Debug.Log("Failed to log in!");
 			}
 		});
 	}
@@ -88,9 +83,9 @@ public class GoogleGameHandler
 				SendToHighscore (unpublishedScore);
 			}
 #if UNITY_IOS
-			GameCenterPlatform.ShowLeaderboardUI (LEADERBOARD_KEY, TimeScope.Week);
+		GameCenterPlatform.ShowLeaderboardUI (GAME_CENTER_LEADERBOARD_KEY, TimeScope.Week);
 #elif UNITY_ANDROID
-            PlayGamesPlatform.Instance.ShowLeaderboardUI(LEADERBOARD_KEY);
+		PlayGamesPlatform.Instance.ShowLeaderboardUI(GOOGLE_LEADERBOARD_KEY);
 #else
 #endif
 
@@ -103,16 +98,29 @@ public class GoogleGameHandler
 
 	public void SendToHighscore (long score)
 	{
+		
 		if (!Social.localUser.authenticated) {
 			HighscoreHandler.Instance.SaveUnpublishedScore (score);
 			return;
 		}
-		Social.ReportScore (score, LEADERBOARD_KEY, (bool success) => {
+		#if UNITY_IOS
+		
+		score /=10;
+		Debug.Log ("Sending " + score + " to leaderboard " + GAME_CENTER_LEADERBOARD_KEY);
+		Social.ReportScore (score, GAME_CENTER_LEADERBOARD_KEY, (bool success) => {
 			// handle success or failure
 			if (!success) {
 				HighscoreHandler.Instance.SaveUnpublishedScore (score);
 			}
 		});
+		#else
+		Social.ReportScore (score, GOOGLE_LEADERBOARD_KEY, (bool success) => {
+		// handle success or failure
+		if (!success) {
+		HighscoreHandler.Instance.SaveUnpublishedScore (score);
+		}
+		});
+		#endif
 	}
 
 	public void IncreaseCompletedRuns ()
@@ -187,12 +195,13 @@ public class GoogleGameHandler
 	private void IncrementAchievement (string name, double stepsToFull)
 	{
 	
-
+		double progress = 100 / stepsToFull * RunLeftPlayerPrefs.GetCompletedRuns();
+		Debug.Log ("100 / "+stepsToFull+" * " +RunLeftPlayerPrefs.GetCompletedRuns());
+		Debug.Log ("Progress of " + name + " " + progress);
 		if (!Social.localUser.authenticated)
 			return;
 #if UNITY_IOS
-		double progress = 100 / stepsToFull;
-		Debug.Log ("Progress of " + name + " " + progress);
+
 		Social.ReportProgress (name, progress, (bool success) => {
 			// handle success or failure
 			if (success) {
