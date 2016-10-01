@@ -5,34 +5,34 @@ using System;
 public class RunLeftManager
 {
 
-    private static RunLeftManager _instance;
-    public enum GameState { Waiting, Playing, Ended };
-    private GameState _state = GameState.Waiting;
-    public static RunLeftManager Instance
+  private static RunLeftManager _instance;
+  public enum GameState { Waiting, Playing, Ended, Paused };
+  private GameState _state = GameState.Waiting;
+  public static RunLeftManager Instance
+  {
+    get
     {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new RunLeftManager();
-            }
-            return _instance;
-        }
+      if (_instance == null)
+      {
+        _instance = new RunLeftManager();
+      }
+      return _instance;
     }
-    public GameState State
+  }
+  public GameState State
+  {
+    get
     {
-        get
-        {
-            return _state;
-        }
-        set
-        {
-            _state = value;
-        }
+      return _state;
     }
+    set
+    {
+      _state = value;
+    }
+  }
 
-    public void CleanUp()
-    {
-        _instance = null;
-    }
+  public void CleanUp()
+  {
+    _instance = null;
+  }
 }

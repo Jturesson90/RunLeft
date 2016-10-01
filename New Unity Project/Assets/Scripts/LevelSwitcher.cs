@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class LevelSwitcher : MonoBehaviour
 {
-
-		
-		
 		public float defaultFadeToClearTime = 2f;
 		public float defaultFadeToBlackTime = 2f;
 		public bool shouldFadeOnStart = true;
